@@ -199,7 +199,7 @@ func (r *Repository) LookupHost(ctx context.Context, publicId string, opt ...Opt
 	h := allocHost()
 	h.PublicId = publicId
 	if err := r.reader.LookupByPublicId(ctx, h); err != nil {
-		if errors.Is(err, errors.ErrRecordNotFound) {
+		if errors.Match(errors.T(errors.RecordNotFound), err) {
 			return nil, nil
 		}
 		return nil, errors.Wrap(err, "Ljwlcf1AdE", errors.WithMsg(fmt.Sprintf("lookup failed for %s", publicId)))

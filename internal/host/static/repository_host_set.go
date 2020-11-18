@@ -211,7 +211,7 @@ func (r *Repository) LookupSet(ctx context.Context, publicId string, opt ...Opti
 	var hosts []*Host
 	_, err := r.writer.DoTx(ctx, db.StdRetryCnt, db.ExpBackoff{}, func(reader db.Reader, _ db.Writer) error {
 		if err := reader.LookupByPublicId(ctx, s); err != nil {
-			if errors.Is(err, errors.ErrRecordNotFound) {
+			if errors.Match(errors.T(errors.RecordNotFound), err) {
 				s = nil
 				return nil
 			}

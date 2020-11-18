@@ -198,7 +198,7 @@ func (r *Repository) LookupCatalog(ctx context.Context, id string, opt ...Option
 	c := allocCatalog()
 	c.PublicId = id
 	if err := r.reader.LookupByPublicId(ctx, c); err != nil {
-		if errors.Is(err, errors.ErrRecordNotFound) {
+		if errors.Match(errors.T(errors.RecordNotFound), err) {
 			return nil, nil
 		}
 		return nil, errors.Wrap(err, "rKb8JERpza", errors.WithMsg(fmt.Sprintf("lookup failed for %s", id)))
@@ -235,7 +235,7 @@ func (r *Repository) DeleteCatalog(ctx context.Context, id string, opt ...Option
 	c := allocCatalog()
 	c.PublicId = id
 	if err := r.reader.LookupByPublicId(ctx, c); err != nil {
-		if errors.Is(err, errors.ErrRecordNotFound) {
+		if errors.Match(errors.T(errors.RecordNotFound), err) {
 			return db.NoRowsAffected, nil
 		}
 		return db.NoRowsAffected, errors.Wrap(err, "I7EbEefwta", errors.WithMsg(fmt.Sprintf("failed to delete %s", id)))
