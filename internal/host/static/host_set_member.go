@@ -1,8 +1,6 @@
 package static
 
 import (
-	"fmt"
-
 	"github.com/hashicorp/boundary/internal/errors"
 	"github.com/hashicorp/boundary/internal/host/static/store"
 )
@@ -17,10 +15,10 @@ type HostSetMember struct {
 // membership of hostId in hostSetId.
 func NewHostSetMember(hostSetId, hostId string, opt ...Option) (*HostSetMember, error) {
 	if hostSetId == "" {
-		return nil, fmt.Errorf("new: static host set member: no host set id: %w", errors.ErrInvalidParameter)
+		return nil, errors.New(errors.InvalidParameter, "dvTR3zHsPw", errors.WithMsg("no host set id"))
 	}
 	if hostId == "" {
-		return nil, fmt.Errorf("new: static host set member: no host id: %w", errors.ErrInvalidParameter)
+		return nil, errors.New(errors.InvalidParameter, "8IwJr5lziU", errors.WithMsg("no host id"))
 	}
 	member := &HostSetMember{
 		HostSetMember: &store.HostSetMember{

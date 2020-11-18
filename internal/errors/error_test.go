@@ -249,6 +249,7 @@ func TestError_Unwrap(t *testing.T) {
 func TestConvertError(t *testing.T) {
 	t.Parallel()
 	testId := errors.ErrorId("testid")
+	testErr := errors.New(errors.InvalidParameter, "unique", errors.WithMsg("test msg"))
 	const (
 		createTable = `
 	create table if not exists test_table (
@@ -290,6 +291,11 @@ func TestConvertError(t *testing.T) {
 				Code: pq.ErrorCode("23001"),
 			},
 			wantErr: errors.New(errors.NotSpecificIntegrity, testId),
+		},
+		{
+			name:    "convert-domain-error",
+			e:       testErr,
+			wantErr: testErr,
 		},
 	}
 	for _, tt := range tests {

@@ -22,6 +22,16 @@ const (
 
 	// General function errors are reserved Codes 100-999
 	InvalidParameter Code = 100 // InvalidParameter represents and invalid parameter for an operation.
+	InvalidAddress   Code = 101
+	InvalidFieldMask Code = 102
+	EmptyFieldMask   Code = 103
+	MissingScopeId   Code = 104
+	MissingPublicId  Code = 105
+	MissingSetId     Code = 106
+	MissingVersion   Code = 107
+	MissingCatalogId Code = 108
+	MissingHostIds   Code = 109
+	GenerateId       Code = 110 // GenerateId represents an error during the ID generation step, this error should wrap a db layer (non-boundary domain) error
 
 	// DB errors are resevered Codes from 1000-1999
 	CheckConstraint      Code = 1000 // CheckConstraint represents a check constraint error

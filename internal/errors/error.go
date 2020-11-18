@@ -66,8 +66,9 @@ func Convert(e error, errorid ErrorId) *Err {
 	if e == nil {
 		return nil
 	}
-	if err, ok := e.(*Err); ok {
-		return err
+	var bErr *Err
+	if As(e, &bErr) {
+		return bErr
 	}
 
 	var pqError *pq.Error
@@ -89,9 +90,6 @@ func Convert(e error, errorid ErrorId) *Err {
 		if pqError.Code == "42P01" {
 			return New(MissingTable, errorid, WithMsg(pqError.Message)).(*Err)
 		}
-	}
-	if errors.Is(e, ErrRecordNotFound) {
-		return New(RecordNotFound, errorid, WithMsg(e.Error())).(*Err)
 	}
 	// unfortunately, we can't help.
 	return nil

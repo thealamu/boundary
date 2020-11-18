@@ -16,6 +16,46 @@ var errorCodeInfo = map[Code]Info{
 		Message: "invalid parameter",
 		Kind:    Parameter,
 	},
+	InvalidAddress: {
+		Message: "invalid address",
+		Kind:    Parameter,
+	},
+	InvalidFieldMask: {
+		Message: "invalid field mask",
+		Kind:    Parameter,
+	},
+	EmptyFieldMask: {
+		Message: "empty field",
+		Kind:    Parameter,
+	},
+	MissingScopeId: {
+		Message: "missing scope id",
+		Kind:    Parameter,
+	},
+	MissingPublicId: {
+		Message: "missing public id",
+		Kind:    Parameter,
+	},
+	MissingSetId: {
+		Message: "missing set id",
+		Kind:    Parameter,
+	},
+	MissingVersion: {
+		Message: "missing version",
+		Kind:    Parameter,
+	},
+	MissingCatalogId: {
+		Message: "missing catalog id",
+		Kind:    Parameter,
+	},
+	MissingHostIds: {
+		Message: "missing host ids",
+		Kind:    Parameter,
+	},
+	GenerateId: {
+		Message: "failed to generate ID",
+		Kind:    Parameter,
+	},
 	CheckConstraint: {
 		Message: "constraint check failed",
 		Kind:    Integrity,
