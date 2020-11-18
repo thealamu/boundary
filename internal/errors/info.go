@@ -54,7 +54,7 @@ var errorCodeInfo = map[Code]Info{
 	},
 	GenerateId: {
 		Message: "failed to generate ID",
-		Kind:    Parameter,
+		Kind:    Other,
 	},
 	CheckConstraint: {
 		Message: "constraint check failed",
