@@ -3,7 +3,6 @@ package handlers
 import (
 	"context"
 	stderrors "errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -97,7 +96,7 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db invalid public id error",
-			err:  fmt.Errorf("test error: %w", errors.ErrInvalidPublicId),
+			err:  errors.New(errors.MissingPublicId, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusInternalServerError,
 				Code:    "Internal",
@@ -106,7 +105,7 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db invalid parameter",
-			err:  fmt.Errorf("test error: %w", errors.ErrInvalidParameter),
+			err:  errors.New(errors.InvalidParameter, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusInternalServerError,
 				Code:    "Internal",
@@ -115,7 +114,7 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db invalid field mask",
-			err:  fmt.Errorf("test error: %w", errors.ErrInvalidFieldMask),
+			err:  errors.New(errors.InvalidFieldMask, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusBadRequest,
 				Code:    "InvalidArgument",
@@ -125,7 +124,7 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db empty field mask",
-			err:  fmt.Errorf("test error: %w", errors.ErrEmptyFieldMask),
+			err:  errors.New(errors.EmptyFieldMask, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusBadRequest,
 				Code:    "InvalidArgument",
@@ -135,7 +134,7 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db not unique",
-			err:  fmt.Errorf("test error: %w", errors.ErrNotUnique),
+			err:  errors.New(errors.NotUnique, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusBadRequest,
 				Code:    "InvalidArgument",
@@ -144,7 +143,7 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db record not found",
-			err:  fmt.Errorf("test error: %w", errors.ErrRecordNotFound),
+			err:  errors.New(errors.RecordNotFound, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusNotFound,
 				Code:    "NotFound",
@@ -153,7 +152,70 @@ func TestApiErrorHandler(t *testing.T) {
 		},
 		{
 			name: "Db multiple records",
-			err:  fmt.Errorf("test error: %w", errors.ErrMultipleRecords),
+			err:  errors.New(errors.MultipleRecords, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db invalid address",
+			err:  errors.New(errors.InvalidAddress, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db missing catalog id",
+			err:  errors.New(errors.MissingCatalogId, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db missing version",
+			err:  errors.New(errors.MissingVersion, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db missing scope id",
+			err:  errors.New(errors.MissingScopeId, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db missing host ids",
+			err:  errors.New(errors.MissingHostIds, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db missing set id",
+			err:  errors.New(errors.MissingSetId, "testid", errors.WithMsg("test msg")),
+			expected: &pb.Error{
+				Status:  http.StatusInternalServerError,
+				Code:    "Internal",
+				Details: &pb.ErrorDetails{ErrorId: ""},
+			},
+		},
+		{
+			name: "Db generate id error",
+			err:  errors.New(errors.GenerateId, "testid", errors.WithMsg("test msg")),
 			expected: &pb.Error{
 				Status:  http.StatusInternalServerError,
 				Code:    "Internal",
